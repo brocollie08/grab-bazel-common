@@ -87,6 +87,7 @@ def db_grab_android_local_test(name,
     )
 
     grab_android_local_test(
+        name = name,
         srcs = srcs + [binding_classes_sources],
         deps = deps + [r_classes],
         associates = associates,
