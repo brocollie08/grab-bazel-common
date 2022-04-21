@@ -55,6 +55,44 @@ def grab_android_local_test(
         **kwargs
     )
 
+def db_grab_android_local_test(name,
+        srcs,
+        deps,
+        associates = [],
+        resource_files = [],
+        tags = [],
+        custom_package = "",
+        **kwargs):
+
+    databinding_stubs_target = name + "-stubs"
+    databinding_stubs(
+        name = databinding_stubs_target,
+        custom_package = custom_package,
+        resource_files = resource_files,
+        tags = tags,
+        deps = deps,
+    )
+    binding_classes_sources = databinding_stubs_target + "_binding.srcjar"
+
+    r_classes_sources = databinding_stubs_target + "_r.srcjar"
+    r_classes = "r-classes"
+
+    # R classes are not meant to be packaged into the binary, so export it as java_library but don't
+    # link it.
+    native.java_library(
+        name = r_classes,
+        srcs = [r_classes_sources],
+        neverlink = 1,  # Use the R classes only for compiling and not at runtime.
+    )
+
+    grab_android_local_test(
+        srcs = srcs + [binding_classes_sources],
+        deps = deps + [r_classes],
+        associates = associates,
+        custom_package = custom_package,
+        **kwargs
+    )
+
 def grab_kt_jvm_test(
         name,
         srcs,
