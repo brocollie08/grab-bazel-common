@@ -1,6 +1,7 @@
 load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_jvm_library")
 load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_jvm_test")
 load(":runtime_resources.bzl", "runtime_resources")
+load("@grab_bazel_common//tools/databinding:databinding_stubs.bzl", "databinding_stubs")
 
 def grab_android_local_test(
         name,
