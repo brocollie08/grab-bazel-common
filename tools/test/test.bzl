@@ -86,10 +86,48 @@ def db_grab_android_local_test(name,
         neverlink = 1,  # Use the R classes only for compiling and not at runtime.
     )
 
+
+    # Not sure if necessary
+    _zipper = "@bazel_tools//tools/zip:zipper"
+    kotlin_target = name + "-kotlin"
+    kotlin_targets = []
+
+    kt_jvm_library(
+        name = kotlin_target,
+        srcs = srcs + [binding_classes_sources],
+        resources = resources,
+        plugins = plugins,
+        deps = deps + [r_classes] + [
+            "@grab_bazel_common//tools/binding-adapter-bridge:binding-adapter-bridge",
+            "@grab_bazel_common//tools/android:android_sdk",
+        ],
+        tags = tags,
+    )
+    kotlin_targets.append(kotlin_target)
+
+    binding_adapter_sources = []
+    binding_adapters_source = name + "-binding-adapters"
+    native.genrule(
+        name = binding_adapters_source,
+        srcs = [":" + kotlin_target + "-sources.jar"],
+        outs = [kotlin_target + "_kt-sources.srcjar"],
+        tools = [_zipper],
+        cmd = """
+        TEMP="adapter-sources"
+        mkdir -p $$TEMP
+        unzip -q -o $< -d $$TEMP/
+        find $$TEMP/. -type f ! -name '*_Binding_Adapter_Stub.java' -delete
+        touch $$TEMP/empty.txt # Package empty file to ensure jar file is always generated
+        find $$TEMP/. -type f -exec $(location {zipper}) c $(OUTS) {{}} +
+        rm -rf $$TEMP
+        """.format(zipper = _zipper),
+    )
+    binding_adapter_sources.append(binding_adapters_source)
+
     grab_android_local_test(
         name = name,
-        srcs = srcs + [binding_classes_sources],
-        deps = deps + [r_classes],
+        srcs = binding_adapter_sources,
+        deps = deps + kotlin_targets,
         associates = associates,
         custom_package = custom_package,
         **kwargs
