@@ -76,7 +76,7 @@ def db_grab_android_local_test(name,
     binding_classes_sources = databinding_stubs_target + "_binding.srcjar"
 
     r_classes_sources = databinding_stubs_target + "_r.srcjar"
-    r_classes = "r-classes"
+    r_classes = "r-class"
 
     # R classes are not meant to be packaged into the binary, so export it as java_library but don't
     # link it.
