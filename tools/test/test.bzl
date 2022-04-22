@@ -128,7 +128,7 @@ def db_grab_android_local_test(name,
 
     grab_android_local_test(
         name = name,
-        srcs = binding_adapter_sources,
+        srcs = srcs + binding_adapter_sources,
         deps = deps + kotlin_targets,
         associates = associates,
         custom_package = custom_package,
