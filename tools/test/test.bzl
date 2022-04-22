@@ -126,6 +126,8 @@ def db_grab_android_local_test(name,
     )
     binding_adapter_sources.append(binding_adapters_source)
 
+    print(srcs + binding_adapter_sources)
+
     grab_android_local_test(
         name = name,
         srcs = srcs + binding_adapter_sources,
