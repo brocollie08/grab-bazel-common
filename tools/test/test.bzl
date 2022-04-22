@@ -201,6 +201,8 @@ def _gen_test_targets(
     test_runtime_deps: Any dependencies required for the test runner target.
     associates: The list of associate targets to allow access to internal members.
     """
+    print("===")
+    print(srcs)
     test_build_target = name + "_build"
     test_compile_rule_type(
         name = test_build_target,
@@ -244,8 +246,6 @@ def _gen_test_targets(
 
     print("+++")
     print(test_names)
-    print("===")
-    print(srcs)
     if len(test_names) >= 0:
         native.test_suite(
             name = name,
