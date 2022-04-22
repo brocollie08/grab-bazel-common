@@ -242,6 +242,7 @@ def _gen_test_targets(
                     **kwargs
                 )
 
+    print("+++")
     print(test_names)
     if len(test_names) >= 0:
         native.test_suite(
