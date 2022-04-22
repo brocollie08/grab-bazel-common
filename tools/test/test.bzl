@@ -233,7 +233,7 @@ def _gen_test_targets(
                 if path.find("src/test/kotlin/") != -1:
                     path = path.split("src/test/kotlin/")[1]
                 if path.find("src/androidTest/java/") != -1:
-                    path = path.split("src/androidTest/java")[1]
+                    path = path.split("src/androidTest/java/")[1]
                 #path = path.split("src/test/java/")[1] if path.find("src/test/java/") != -1 else path.split("src/test/kotlin/")[1]  # com/grab/test
                 test_class = path.replace("/", ".") + "." + test_file_name  # com.grab.test.TestFile
 
