@@ -244,6 +244,8 @@ def _gen_test_targets(
 
     print("+++")
     print(test_names)
+    print("===")
+    print(srcs)
     if len(test_names) >= 0:
         native.test_suite(
             name = name,
