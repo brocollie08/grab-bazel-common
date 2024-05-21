@@ -29,6 +29,7 @@ def kt_db_android_library(
         srcs = [],
         custom_package = None,
         manifest = None,
+        resources = [],
         resource_files = [],
         assets = None,
         assets_dir = None,
@@ -61,7 +62,8 @@ def kt_db_android_library(
         manifest: The AndroidManifest.xml file for android library.
         assets: Assets for android_library rule
         assets_dir: Assets dir for android_library rule
-        resource_files: The resource files for the target.
+        resources: The JAR resource files for the target.
+        resource_files: The Android resource files for the target.
         deps: The dependencies for the whole target.
         plugins: Kotlin compiler plugins for internal Kotlin target
         visibility: Visibility of the target.
@@ -115,11 +117,12 @@ def kt_db_android_library(
             name = kotlin_target,
             srcs = srcs + [binding_classes_sources],
             plugins = plugins,
+            resources = resources,
             deps = deps + _DATABINDING_DEPS + [r_classes] + [
                 "@grab_bazel_common//tools/binding-adapter-bridge:binding-adapter-bridge",
                 "@grab_bazel_common//tools/android:android_sdk",
             ],
-            tags = [tag for tag in tags if tag != LINT_ENABLED],
+            # tags = [tag for tag in tags if tag != LINT_ENABLED],
         )
         kotlin_targets.append(kotlin_target)
 
