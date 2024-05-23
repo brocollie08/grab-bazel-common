@@ -1,6 +1,5 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", _http_archive = "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 def http_archive(name, **kwargs):
     maybe(_http_archive, name = name, **kwargs)
@@ -32,10 +31,10 @@ def _kotlin():
 
     RULES_KOTLIN_SHA = "58fde1a5d0ab6fa812ba3fb93331b2d7652fd3b6"
 
-    git_repository(
+    http_archive(
         name = "io_bazel_rules_kotlin",
-        commit = RULES_KOTLIN_SHA,
-        remote = "https://github.com/bazelbuild/rules_kotlin.git",
+        sha256 = RULES_KOTLIN_SHA,
+        urls = ["https://github.com/bazelbuild/rules_kotlin/releases/download/v%s/rules_kotlin-v%s.tar.gz" % RULES_KOTLIN_VERSION],
     )
 
 def _proto():
