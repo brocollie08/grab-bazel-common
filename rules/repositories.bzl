@@ -31,10 +31,10 @@ def _kotlin():
 
     RULES_KOTLIN_SHA = "58fde1a5d0ab6fa812ba3fb93331b2d7652fd3b6"
 
-    http_archive(
+    git_repository(
         name = "io_bazel_rules_kotlin",
-        sha256 = RULES_KOTLIN_SHA,
-        urls = ["https://github.com/bazelbuild/rules_kotlin/releases/download/v%s/rules_kotlin_release.tgz" % RULES_KOTLIN_VERSION],
+        commit = RULES_KOTLIN_SHA,
+        remote = "https://github.com/bazelbuild/rules_kotlin.git",
     )
 
 def _proto():
