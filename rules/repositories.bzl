@@ -29,12 +29,12 @@ def _maven():
 def _kotlin():
     RULES_KOTLIN_VERSION = "1.9.1"
 
-    RULES_KOTLIN_SHA = "58fde1a5d0ab6fa812ba3fb93331b2d7652fd3b6"
+    RULES_KOTLIN_SHA = "d9898c3250e0442436eeabde4e194c30d6c76a4a97f517b18cefdfd4e345725a"
 
     http_archive(
         name = "io_bazel_rules_kotlin",
         sha256 = RULES_KOTLIN_SHA,
-        urls = ["https://github.com/bazelbuild/rules_kotlin/releases/download/v%s/rules_kotlin-v%s.tar.gz" % RULES_KOTLIN_VERSION],
+        urls = ["https://github.com/bazelbuild/rules_kotlin/releases/download/v%s/rules_kotlin-v%s.tar.gz" %(RULES_KOTLIN_VERSION, RULES_KOTLIN_VERSION)],
     )
 
 def _proto():
