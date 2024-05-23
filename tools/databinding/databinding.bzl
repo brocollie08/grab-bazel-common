@@ -29,6 +29,7 @@ def kt_db_android_library(
         srcs = [],
         custom_package = None,
         manifest = None,
+        main_opts = None,
         resources = [],
         resource_files = [],
         assets = None,
@@ -117,6 +118,7 @@ def kt_db_android_library(
             name = kotlin_target,
             srcs = srcs + [binding_classes_sources],
             plugins = plugins,
+            kotlinc_opts = main_opts,
             resources = resources,
             deps = deps + _DATABINDING_DEPS + [r_classes] + [
                 "@grab_bazel_common//tools/binding-adapter-bridge:binding-adapter-bridge",
